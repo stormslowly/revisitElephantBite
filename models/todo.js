@@ -10,6 +10,9 @@ class Todo extends todoStorage{
     return this.project.add(this)
   }
 
+  finish(){
+    return this.project.done(this)
+  }
 }
 
 

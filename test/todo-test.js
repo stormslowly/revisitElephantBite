@@ -1,8 +1,9 @@
 'use strict'
 
-var project = require('../models/project')
+var Project = require('../models/project')
 
 describe('Todo', function () {
+  var project = new Project({name: 'elephant'})
   describe('new Todo', function () {
     var todo
     beforeEach(function () {
@@ -24,7 +25,6 @@ describe('Todo', function () {
     });
 
   })
-
 
   describe('add todo', function () {
     var todo
@@ -53,4 +53,25 @@ describe('Todo', function () {
     })
   })
 
+  describe('done a todo', function () {
+    var todo, project
+
+    beforeEach(function*() {
+      project = new Project({name: 'dogi dogi'})
+      todo = project.createTodo('finish me')
+      yield todo.add()
+    })
+
+    it('done a todo', function*() {
+      yield todo.finish()
+      expect(todo.done).to.equal(true)
+      expect(project).to.have.properties({all: 1, finished: 1})
+    })
+
+    it('done a todo twice', function*() {
+      yield todo.finish()
+      yield todo.finish()
+      expect(project.toObject()).to.have.properties({all: 1, finished: 1})
+    })
+  })
 })

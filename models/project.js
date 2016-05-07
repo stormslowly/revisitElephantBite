@@ -10,7 +10,7 @@ class Project extends projectStorage {
   }
 
   createTodo(todoTitle) {
-    var todo = new Todo({title:todoTitle})
+    var todo = new Todo({title: todoTitle})
     todo.project = this;
     todo.done = false
     return todo
@@ -26,31 +26,37 @@ class Project extends projectStorage {
     })
   }
 
+  done(todo){
+    return co.call(this, function*() {
+      if(todo.done){
+        return todo
+      }
+      todo.done = true
+      yield  todo.save()
+      this.finished +=1
+      yield this.save()
+      return todo
+    })
+  }
 
+  getTodo(id) {
+    return co.call(this, function*() {
+      var todo =  yield  Todo.findOne({_id: id, project: this.id}).exec()
+      todo.project = this
+      return todo
+    })
+  }
+
+
+  getTodos(query){
+    return co.call(this, function*() {
+      var q = Object.assign({},query,{project:this.id})
+      var todos = yield Todo.find(q).exec()
+      todos.forEach(function(t){
+        t.project  = this
+      })
+    })
+  }
 }
 
-//
-// var project = {
-//   createTodo(title){
-//     return {
-//       title: title || null, done: false,
-//       add(){
-//         return this.project.add(this)
-//       },
-//       project
-//     }
-//   },
-//   todos: [],
-//   saveTodo: function (todo) {
-//     this.todos.push(todo)
-//   },
-//   add(todo){
-//     if (!todo.title) {
-//       throw Error('NO_TITLE')
-//     }
-//     this.saveTodo(todo);
-//   }
-// }
-
-var project = new Project({name: 'elephant'})
-module.exports = project;
+module.exports = Project;
