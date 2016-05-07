@@ -11,6 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-properties": "github:51ulong/chai-properties"
+    "chai-properties": "github:51ulong/chai-properties",
+    "co-mocha": "^1.1.2"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "mongoose": "^4.4.15"
   }
 }
