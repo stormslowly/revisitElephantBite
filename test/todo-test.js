@@ -53,7 +53,7 @@ describe('Todo', function () {
     })
   })
 
-  describe('done a todo', function () {
+  describe('done/undone', function () {
     var todo, project
 
     beforeEach(function*() {
@@ -61,17 +61,39 @@ describe('Todo', function () {
       todo = project.createTodo('finish me')
       yield todo.add()
     })
-
-    it('done a todo', function*() {
-      yield todo.finish()
-      expect(todo.done).to.equal(true)
-      expect(project).to.have.properties({all: 1, finished: 1})
+    afterEach(function*() {
+      yield  project.drop()
     })
 
-    it('done a todo twice', function*() {
-      yield todo.finish()
-      yield todo.finish()
-      expect(project.toObject()).to.have.properties({all: 1, finished: 1})
+    describe('done a todo', function () {
+      it('done a todo', function*() {
+        yield todo.finish()
+        expect(todo.done).to.equal(true)
+        expect(project).to.have.properties({all: 1, finished: 1})
+      })
+
+      it('done a todo twice', function*() {
+        yield todo.finish()
+        yield todo.finish()
+        expect(project.toObject()).to.have.properties({all: 1, finished: 1})
+      })
     })
+
+    describe('undo a done todo', function () {
+      it('undo a done todo', function*() {
+        yield todo.finish()
+        yield todo.undone()
+        expect(todo.done).to.equal(false)
+        expect(project.toObject()).to.have.properties({all: 1, finished: 0})
+      })
+
+      it('undo a undone todo', function*() {
+        yield todo.undone()
+        expect(todo.done).to.equal(false)
+        expect (project.toObject()).to.have.properties({all:1,finished:0})
+      })
+
+    })
+
   })
 })

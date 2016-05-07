@@ -26,35 +26,54 @@ class Project extends projectStorage {
     })
   }
 
-  done(todo){
+  done(todo) {
     return co.call(this, function*() {
-      if(todo.done){
+      if (todo.done) {
         return todo
       }
       todo.done = true
       yield  todo.save()
-      this.finished +=1
+      this.finished += 1
       yield this.save()
+      return todo
+    })
+  }
+
+  undone(todo) {
+    return co.call(this, function*() {
+      if (todo.done === false) {
+        return todo
+      }
+      todo.done = false
+      yield todo.save()
+      this.finished -= 1
+      yield  this.save()
       return todo
     })
   }
 
   getTodo(id) {
     return co.call(this, function*() {
-      var todo =  yield  Todo.findOne({_id: id, project: this.id}).exec()
+      var todo = yield  Todo.findOne({_id: id, project: this.id}).exec()
       todo.project = this
       return todo
     })
   }
 
-
-  getTodos(query){
+  getTodos(query) {
     return co.call(this, function*() {
-      var q = Object.assign({},query,{project:this.id})
+      var q = Object.assign({}, query, {project: this.id})
       var todos = yield Todo.find(q).exec()
-      todos.forEach(function(t){
-        t.project  = this
+      todos.forEach(function (t) {
+        t.project = this
       })
+    })
+  }
+
+  drop() {
+    return co.call(this, function*() {
+      yield  Todo.remove({project: this.id})
+      yield  this.remove()
     })
   }
 }

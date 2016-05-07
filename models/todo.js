@@ -13,6 +13,10 @@ class Todo extends todoStorage{
   finish(){
     return this.project.done(this)
   }
+
+  undone(){
+    return this.project.undone(this)
+  }
 }
 
 
