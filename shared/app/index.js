@@ -11,7 +11,7 @@ import routes from './routers.jsx'
 var initState = typeof window === 'undefined' ? {} : window.__INITIAL_STATE__
 
 const store = configStore(initState);
-const dest = document.getElementById('root');
+const dest = document.getElementsByTagName('body')[0];
 const history = browserHistory;
 
 render(
