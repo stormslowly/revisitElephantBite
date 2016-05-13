@@ -1,5 +1,5 @@
 import React from 'react'
-import Project from  './Project'
+import ProjectCover from  './ProjectCover'
 
 function Projects(props) {
   var projectsStyle = {
@@ -12,7 +12,7 @@ function Projects(props) {
 
   return <div className='clearfix'>
     <div style={projectsStyle}>
-      {projects.map((p, i)=> <Project key={i} project={p}/>)}
+      {projects.map((p, i)=> <ProjectCover key={i} project={p}/>)}
     </div>
   </div>
 }
