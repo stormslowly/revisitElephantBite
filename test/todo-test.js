@@ -1,6 +1,6 @@
 'use strict'
 
-var Project = require('../models/project')
+var Project = require('../entities/project')
 
 describe('Todo', function () {
   var project = new Project({name: 'elephant'})
