@@ -27,3 +27,5 @@ export function configStore(initialState) {
   }
   return store
 }
+
+export default configStore({})

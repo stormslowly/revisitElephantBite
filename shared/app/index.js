@@ -4,13 +4,13 @@ import DevTools from '../containers/DevTools/DevTools';
 import {render} from 'react-dom';
 import {Provider, connect} from 'react-redux';
 import {Router, browserHistory} from 'react-router';
-import {configStore}from '../redux/stores/createStore';
+import store from '../redux/stores/createStore';
 
 import routes from './routers.jsx'
 
 var initState = typeof window === 'undefined' ? {} : window.__INITIAL_STATE__
 
-const store = configStore(initState);
+// const store = configStore(initState);
 const dest = document.getElementById('root');
 const history = browserHistory;
 

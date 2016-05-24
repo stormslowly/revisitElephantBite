@@ -1,6 +1,8 @@
 import React from 'react'
 import ProjectCover from  './ProjectCover'
 
+import {Link} from 'react-router'
+
 function Projects(props) {
   var projectsStyle = {
     display: 'flex',
@@ -12,7 +14,7 @@ function Projects(props) {
 
   return <div className='clearfix'>
     <div style={projectsStyle}>
-      {projects.map((p, i)=> <ProjectCover key={i} project={p}/>)}
+      {projects.map( (p, i)=> <Link key={i} to={`/project/${i}`}><ProjectCover  project={p}/></Link>)}
     </div>
   </div>
 }
@@ -23,15 +25,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    var projects = [
-      {name: 'DIY2', tasks: 10, done: 5},
-      {name: 'DIY2', tasks: 10, done: 0},
-      {name: 'DIY2', tasks: 10, done: 3},
-      {name: 'DIY2', tasks: 10, done: 4},
-      {name: 'DIY2', tasks: 10, done: 2},
-      {name: 'DIY3', tasks: 10, done: 9},
-    ]
-    return <Projects projects={projects}/>
+    return <Projects projects={this.props.projects}/>
   }
 }
 

@@ -8,6 +8,13 @@ import routes from '../shared/app/routers.jsx'
 import {fetchComponentData} from './fetchData'
 
 export function serverSideRender (req, res, next) {
+
+  return res.render('index', {
+    html: '',
+    initialState: {}
+  })
+
+
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end('Internal server error');

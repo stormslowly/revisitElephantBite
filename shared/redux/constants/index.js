@@ -1,2 +1,3 @@
-export const ADD_NUMBER = 'ADD_NUMBER'
-export const SET_NUMBER = 'SET_NUMBER'
+export const ADD_PROJECT = 'ADD_PROJECT'
+export const SET_PROJECTS = 'SET_PROJECTS'
+export const SET_CURRENT_PROJECT = 'SET_CURRENT_PROJECT'

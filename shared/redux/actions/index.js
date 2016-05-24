@@ -1,17 +1,42 @@
+/* globals store*/
 import * as ActionTypes from '../constants/index'
 import fetch from 'isomorphic-fetch'
 
 
-export function addNumber(amount =1 ) {
+export function addProject(project) {
+
+
+  return {}
+}
+
+export function loadProjects() {
+  var projects = store.get('projects') || []
+
   return {
-    type: ActionTypes.ADD_NUMBER,
-    amount
+    type: ActionTypes.SET_PROJECTS,
+    projects
   }
 }
 
-export function setNumber(number){
+export function setCurrentProject(project) {
+  project.todos = project.todos || []
   return {
-    type:ActionTypes.SET_NUMBER,
-    number
+    type: ActionTypes.SET_CURRENT_PROJECT,
+    project
+  }
+}
+
+
+export function addTodoToProject(project, task){
+
+  project.todos = [{task,done:false},...project.todos]
+  project.tasks = project.todos.length
+  project.done = project.todos.filter((t)=>t.done).length
+
+  var newProject = Object.assign({},project)
+
+  return {
+    type: ActionTypes.SET_CURRENT_PROJECT,
+    project:newProject
   }
 }
