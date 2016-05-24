@@ -11,10 +11,16 @@ function enterDashboard(){
   store.dispatch(loadProjects())
 }
 
-function enterProject (routeState){
+function enterProject (routeState,replace){
   let  {projectId} = routeState.params
   let {projects} = store.getState()
-  store.dispatch(setCurrentProject(projects[projectId]))
+  let project = projects[projectId];
+  if(project)
+  {
+    store.dispatch(setCurrentProject(project))}
+  else{
+    replace('/')
+  }
 }
 
 const routes = (
