@@ -27,16 +27,30 @@ export function setCurrentProject(project) {
 }
 
 
-export function addTodoToProject(project, task){
+export function addTodoToProject(project, task) {
 
-  project.todos = [{task,done:false},...project.todos]
+  project.todos = [{task, done: false}, ...project.todos]
   project.tasks = project.todos.length
   project.done = project.todos.filter((t)=>t.done).length
 
-  var newProject = Object.assign({},project)
+  var newProject = Object.assign({}, project)
 
   return {
     type: ActionTypes.SET_CURRENT_PROJECT,
-    project:newProject
+    project: newProject
   }
+}
+
+export function createProject(name) {
+  var project = {
+    name: name,
+    tasks: 0,
+    done: 0,
+    todos: []
+  }
+
+  var projects = store.get('projects')
+  projects.unshift(project)
+  store.set('projects', projects)
+  return loadProjects()
 }

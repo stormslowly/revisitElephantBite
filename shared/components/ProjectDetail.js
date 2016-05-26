@@ -1,56 +1,6 @@
 import React from 'react'
-import ProgressCircle  from '../components/ProgressCircle'
+import ProjectHeader from  './ProjectHeader'
 
-function ProjectHeader(props) {
-  var {project} =  props
-
-  var style = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    backgroundColor: '#FFF',
-    height: '150px',
-    marginTop: '20px',
-    color: '#d1d1d1'
-  }
-
-  var logo = {
-    width: '110px',
-    height: '110px'
-  }
-
-  var circle = {
-    position: 'absolute',
-    height: '150px'
-  }
-  var imageContainer = {
-    width: '150px',
-    height: '150px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-
-  var info = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center'
-  }
-
-
-  return <div style={style}>
-    <div style={circle}>
-      <ProgressCircle style={circle} width={150} height={150} radius={60} progress={0.333}/>
-    </div>
-    <div style={imageContainer}>
-      <img style={logo} src="/images/dm_large-1@2x.png" alt="logo"/>
-    </div>
-    <div style={info}>
-      <h1 style={{color:'#999',marginTop:'0px',marginBottom:'10px'}}>{project.name}</h1>
-      <div>1/2 tasks left</div>
-    </div>
-  </div>
-}
 
 class NewTodoForm extends React.Component {
   constructor(props, context) {
@@ -141,9 +91,21 @@ class ProjectDetail extends React.Component {
 
   render() {
     var {project, submit} = this.props
+    var info = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }
+
+
 
     return <div>
-      <ProjectHeader project={project}/>
+      <ProjectHeader project={project}>
+        <div style={info}>
+          <h1 style={{color:'#999',marginTop:'0px',marginBottom:'10px'}}>{project.name}</h1>
+          <div>{project.done}/{project.tasks} tasks left</div>
+        </div>
+      </ProjectHeader>
       <NewTodoForm submit={(task)=>submit(project,task)}/>
       <Todos todos={project.todos}/>
     </div>
