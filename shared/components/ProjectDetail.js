@@ -35,48 +35,24 @@ class NewTodoForm extends React.Component {
       }
     }
 
-    return <div style={container}>
+    return <div className="project-container">
       <span style={{marginLeft:'10px'}}> <img src="/images/add_bite-icon@2x.png" alt="+"/></span>
-      <input style={form} ref="text" type="text" placeholder="And A Todo" onKeyPress={handleKeyPress}>
+      <input className="task-form" ref="text" type="text" placeholder="And A Todo" onKeyPress={handleKeyPress}>
       </input>
     </div>
   }
 }
 
 function Todos(props) {
-
   var {todos} = props
-
-  var todoStyle = {
-    height: '60px',
-    paddingBottom: '0px',
-    paddingTop: '5px',
-    paddingLeft: '10px',
-    lineHeight: '70px',
-    fontSize: '40px',
-    borderBottom: '2px #aaa solid',
-    color: '#272426'
-  }
-
-  var doneStyle = {
-    height: '60px',
-    paddingBottom: '0px',
-    paddingTop: '5px',
-    paddingLeft: '10px',
-    lineHeight: '70px',
-    fontSize: '40px',
-    borderBottom: '2px #aaa solid',
-    color: '#C5C0BC',
-    textDecoration: 'line-through'
-  }
-
 
   return <div>
     <ul style={{listStyle: 'none',padding:'0px'}}>
       {
         todos.map(function (todo, i) {
-          var style = todo.done ? doneStyle : todoStyle
-          return <li key={i} style={style}>{todo.task}</li>
+          var todoClass = todo.done ? 'todo done' : 'todo'
+
+          return <li key={i} className={todoClass}>{todo.task}</li>
         })
       }
     </ul>
@@ -96,7 +72,6 @@ class ProjectDetail extends React.Component {
       flexDirection: 'column',
       justifyContent: 'center'
     }
-
 
 
     return <div>

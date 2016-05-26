@@ -21,18 +21,8 @@ class ProjectForm extends React.Component {
 
   render() {
     var project = {name: '', tasks: 0, done: 0}
-    var style = {
-      display: 'flex',
-      height: '60px',
-      fontSize: '30px',
-      flexGrow: '2',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'center',
-      borderColor: '#E2DDDD'
-    }
     return <ProjectHeader project={project}>
-      <input style={style} onKeyPress={this.handleKeyPress} placeholder="input project name" type="text" ref="name"/>
+      <input className="projectName-input"  onKeyPress={this.handleKeyPress} placeholder="input project name" type="text" ref="name"/>
     </ProjectHeader>
 
   }
