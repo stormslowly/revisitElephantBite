@@ -1,20 +1,15 @@
-XERN
+ElephantBites Revist
 ----
 
-a personal boilerplate for `Express` `React` and `Node.js` 
+![screenshot](https://github.com/stormslowly/revisitElephantBite/blob/master/public/images/elephant.png)
 
-this project is copy from [MERN-starter](https://github.com/Hashnode/mern-starter) and 
-did some modification for my personal tastes (good or bad).
+a react&redux practise project
 
-below is the modifications
- 
- 1. use [react-hot-loader](https://github.com/gaearon/react-hot-loader) as hot loader
- 2. server side render accept synchronized actions
- 3. data fetching using `req` other than `params`
- 
- 
-## NOTE
-
-now `react-hot-loader` v3 is in beta stage, but i am using v1.3.0
-with this version you have to write react component using extends `Component`
-and pure function Component will not be hot loaded
+[x] create project
+[x] delelte project
+[]  add a task
+[]  done a task
+[]  remove a task
+[]  using web API instead of localstorage
+[]  support multi user
+[]  wx login
