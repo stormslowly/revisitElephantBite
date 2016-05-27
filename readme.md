@@ -5,11 +5,11 @@ ElephantBites Revist
 
 a react&redux practise project
 
-[x] create project
-[x] delelte project
-[]  add a task
-[]  done a task
-[]  remove a task
-[]  using web API instead of localstorage
-[]  support multi user
-[]  wx login
+- [x] create project
+- [x] delelte project
+- [ ]  add a task
+- [ ]  done a task
+- [ ]  remove a task
+- [ ]  using web API instead of localstorage
+- [ ]  support multi user
+- [ ]  wx login
