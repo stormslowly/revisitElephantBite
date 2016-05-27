@@ -3,12 +3,6 @@ import * as ActionTypes from '../constants/index'
 import fetch from 'isomorphic-fetch'
 
 
-export function addProject(project) {
-
-
-  return {}
-}
-
 export function loadProjects() {
   var projects = store.get('projects') || []
 
@@ -51,6 +45,13 @@ export function createProject(name) {
 
   var projects = store.get('projects')
   projects.unshift(project)
+  store.set('projects', projects)
+  return loadProjects()
+}
+
+export function removeProject(projectIndex){
+  var projects = store.get('projects')
+  projects.splice(projectIndex,1)
   store.set('projects', projects)
   return loadProjects()
 }

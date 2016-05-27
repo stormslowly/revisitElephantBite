@@ -30,18 +30,26 @@ function ProjectCover(props) {
   }
 
   var circleContainer = {
-    zIndex: '9999',
+    zIndex: '9',
     position: 'absolute',
     margin: '10px'
   }
   var project = props.project
   var progress = project.tasks > 0 ? project.done / project.tasks : 0
 
-  return <div>
+  function click(e){
+    e.preventDefault()
+    props.remove()
+  }
+  
+  return <div className="project">
     <div style={circleContainer}>
       <ProgressCircle width={200} height={200} radius={80} progress={progress}/>
     </div>
     <div style={style}>
+      <div className="delete-btn" onClick={click}>
+        <img src="/images/delete-icon@2x.png" alt="delete button"/>
+      </div>
       <div style={{ display:'flex',width:'180px',height:'180px', alignItems: 'center',
     justifyContent:'center'}}>
         <img src={"/images/dm_large-1@2x.png"} style={logo}/>

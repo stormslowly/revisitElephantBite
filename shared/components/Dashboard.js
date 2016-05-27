@@ -13,7 +13,9 @@ function Projects(props) {
   var projects = props.projects
   return <div className='clearfix'>
     <div className="projects" >
-      {projects.map((p, i)=> <Link key={i} to={`/project/${i}`}><ProjectCover project={p}/></Link>)}
+      {projects.map((p, i)=> <Link key={i} to={`/project/${i}`}>
+        <ProjectCover project={p} remove={ function(){props.removeProject(i)} }/></Link>)
+      }
       <Link className="new-project" to={'/project/new'}> <NewProject/> </Link>
     </div>
   </div>
@@ -25,7 +27,7 @@ class Dashboard extends React.Component {
     super(props, context)
   }
   render() {
-    return <Projects projects={this.props.projects}/>
+    return <Projects projects={this.props.projects}  removeProject={this.props.removeProject}/>
   }
 }
 
