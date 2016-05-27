@@ -2,18 +2,25 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
 import ProjectDetail  from '../components/ProjectDetail'
-import  {addTodoToProject} from '../redux/actions'
+import  {addProjectTodo,doneProjectTodo,deleteProjectTodo} from '../redux/actions'
 
 export default connect(function (state) {
     var currentProject = state.currentProject
     return {
-      project: currentProject
+      project: currentProject,
+      index:state.projectIndex
     }
   },
   function (dispatch) {
     return {
-      submit: function (project,task) {
-        dispatch(addTodoToProject(project, task))
+      submit: function (projectIndex,task) {
+        dispatch(addProjectTodo(projectIndex, task))
+      },
+      doneTodo: function(projectIndex,taskIndex){
+        dispatch(doneProjectTodo(projectIndex,taskIndex))
+      },
+      deleteTodo: function(projectIndex,taskIndex){
+        dispatch(deleteProjectTodo(projectIndex,taskIndex))
       }
     }
   }

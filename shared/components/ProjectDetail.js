@@ -8,30 +8,15 @@ class NewTodoForm extends React.Component {
   }
 
   render() {
-
-    var container = {
-      marginTop: '20px',
-      display: 'flex',
-      width: '100%',
-      backgroundColor: '#E2DDDD',
-      alignItems: 'center',
-      border: '2px dashed #aaa'
-    }
-
-
-    var form = {
-      width: '100%', height: '60px', lineHeight: '1.1', fontSize: '60px',
-      border: '0px', marginLeft: '10px',
-      backgroundColor: '#E2DDDD'
-    }
-
     let self = this
 
     function handleKeyPress(event) {
       if (event.key == 'Enter') {
-        let task = self.refs.text.value
-        self.props.submit(task)
-        self.refs.text.value = ''
+        let task = self.refs.text.value.trim()
+        if (task) {
+          self.props.submit(task)
+          self.refs.text.value = ''
+        }
       }
     }
 
@@ -44,15 +29,29 @@ class NewTodoForm extends React.Component {
 }
 
 function Todos(props) {
-  var {todos} = props
+  var {todos, doneById, deleteById  } = props
 
   return <div>
     <ul style={{listStyle: 'none',padding:'0px'}}>
       {
         todos.map(function (todo, i) {
           var todoClass = todo.done ? 'todo done' : 'todo'
+          var doneButtonClass = todo.done ? 'hidden' : 'done-button'
+          var deleteButtonClass = todo.done? 'delete-button':'hidden'
+          return <li key={i}
+                     className={todoClass}>{todo.task}
+                    <span onClick={()=>doneById(i)}
+                          className={doneButtonClass}>
+                      <img src="/images/complete_bite-icon@2x.png"
+                           alt="done-button"/>
+                    </span>
 
-          return <li key={i} className={todoClass}>{todo.task}</li>
+                    <span onClick={()=>deleteById(i)}
+                          className={deleteButtonClass}>
+                      <img src="/images/delete_bite-icon@2x.png"
+                           alt="delete-button"/>
+                    </span>
+          </li>
         })
       }
     </ul>
@@ -66,13 +65,12 @@ class ProjectDetail extends React.Component {
   }
 
   render() {
-    var {project, submit} = this.props
+    var {project, index, submit, doneTodo, deleteTodo} = this.props
     var info = {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center'
     }
-
 
     return <div>
       <ProjectHeader project={project}>
@@ -81,8 +79,9 @@ class ProjectDetail extends React.Component {
           <div>{project.done}/{project.tasks} tasks left</div>
         </div>
       </ProjectHeader>
-      <NewTodoForm submit={(task)=>submit(project,task)}/>
-      <Todos todos={project.todos}/>
+      <NewTodoForm submit={(task)=>submit(index,task)}/>
+      <Todos todos={project.todos} doneById={(todoIndex)=> doneTodo(index,todoIndex)}
+             deleteById={(todoIndex)=> deleteTodo(index,todoIndex)}/>
     </div>
   }
 }

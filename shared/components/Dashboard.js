@@ -3,7 +3,7 @@ import ProjectCover from  './ProjectCover'
 
 import {Link} from 'react-router'
 
-function NewProject(props) {
+function NewProject() {
   return <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center'}}>
     <img style={{width:'70%',display:'flex',alignSelf:'center'}} src="/images/add_bite-icon@2x.png"/>
   </div>

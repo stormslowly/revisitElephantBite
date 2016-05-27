@@ -20,20 +20,78 @@ export function setCurrentProject(project) {
   }
 }
 
+export function setCurrentProjectIndex(index) {
+  return {
+    type: ActionTypes.SET_PROJECT_INDEX,
+    index
+  }
+}
 
-export function addTodoToProject(project, task) {
+function sort(todos){
+
+  todos.sort(function(t1,t2){
+      return Number(t1.done)-Number(t2.done)
+  })
+
+}
+
+
+export function addProjectTodo(projectIndex, task) {
+  var projects = store.get('projects')
+  var project = projects[projectIndex]
 
   project.todos = [{task, done: false}, ...project.todos]
   project.tasks = project.todos.length
   project.done = project.todos.filter((t)=>t.done).length
 
-  var newProject = Object.assign({}, project)
+  projects[projectIndex] = project
+  store.set('projects', projects)
 
   return {
     type: ActionTypes.SET_CURRENT_PROJECT,
-    project: newProject
+    project
   }
 }
+
+export function doneProjectTodo(projectIndex, taskIndex) {
+  var projects = store.get('projects')
+  var project = projects[projectIndex]
+  var todo = project.todos[taskIndex]
+
+  todo.done = true
+  project.done += 1
+  var newTodo = Object.assign({}, todo)
+
+  project.todos =  [].concat(project.todos.slice(0, taskIndex ),
+    newTodo,
+    project.todos.slice(taskIndex + 1))
+  project.tasks = project.todos.length
+  project.done = project.todos.filter((t)=>t.done).length
+  sort(project.todos)
+
+  store.set('projects', projects)
+  return {
+    type: ActionTypes.SET_CURRENT_PROJECT,
+    project
+  }
+
+}
+
+export function deleteProjectTodo(projectIndex,taskIndex){
+  var projects = store.get('projects')
+  var project = projects[projectIndex]
+
+  project.todos.splice(taskIndex,1)
+  project.tasks = project.todos.length
+  project.done = project.todos.filter((t)=>t.done).length
+
+  store.set('projects', projects)
+  return {
+    type: ActionTypes.SET_CURRENT_PROJECT,
+    project
+  }
+}
+
 
 export function createProject(name) {
   var project = {
@@ -49,9 +107,9 @@ export function createProject(name) {
   return loadProjects()
 }
 
-export function removeProject(projectIndex){
+export function removeProject(projectIndex) {
   var projects = store.get('projects')
-  projects.splice(projectIndex,1)
+  projects.splice(projectIndex, 1)
   store.set('projects', projects)
   return loadProjects()
 }

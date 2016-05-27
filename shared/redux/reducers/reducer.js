@@ -29,9 +29,17 @@ function currentProjectReducer(project=null,action){
   return project
 }
 
+function currentProjectIndex(index=0,action){
+  if(action.type===ActionTypes.SET_PROJECT_INDEX){
+    return action.index
+  }
+  return index
+}
+
 const reducers = {
   projects: projectReducer,
-  currentProject:currentProjectReducer
+  currentProject:currentProjectReducer,
+  projectIndex: currentProjectIndex
 }
 const combinedReducer = combineReducers(reducers)
 

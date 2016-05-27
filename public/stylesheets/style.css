@@ -81,11 +81,36 @@ a {
     font-size: 40px;
     border-bottom: 2px #aaa solid;
     color: #272426;
+    position: relative;
 }
 
 .todo.done {
     color: #C5C0BC;
     text-decoration: line-through
+}
+
+.todo .done-button{
+    transform: scale(0);
+    transition: all 0.2s ease-in;
+    position: absolute;
+    top:15px;
+    right: 0;
+}
+
+.todo:hover .done-button{
+    transform: scale(1);
+}
+
+.todo .delete-button {
+    transform: scale(0);
+    transition: all 0.2s ease-out;
+    position: absolute;
+    top:15px;
+    right: 20px;
+
+}
+.todo:hover .delete-button{
+    transform: scale(1);
 }
 
 .project{
@@ -109,4 +134,8 @@ a {
     right:20px;
     transform: scale(1);
 
+}
+
+.hidden{
+    display: none;
 }
