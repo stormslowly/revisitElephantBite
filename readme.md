@@ -11,6 +11,8 @@ the todo list
 - [x] add a task
 - [x] done a task
 - [x] remove a task
-- [ ]  using web API instead of local storage
-- [ ]  support multi user
-- [ ]  wx login
+- [ ] double click to edit task title 
+- [ ] double click to project title 
+- [ ] using web API instead of local storage
+- [ ] support multi user
+- [ ] swx login
