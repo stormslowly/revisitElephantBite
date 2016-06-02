@@ -2,9 +2,12 @@
 import * as ActionTypes from '../constants/index'
 import fetch from 'isomorphic-fetch'
 
+function getProjects() {
+  return store.get('projects')||[]
+}
 
 export function loadProjects() {
-  var projects = store.get('projects') || []
+  var projects = getProjects()
 
   return {
     type: ActionTypes.SET_PROJECTS,
@@ -37,7 +40,7 @@ function sort(todos){
 
 
 export function addProjectTodo(projectIndex, task) {
-  var projects = store.get('projects')
+  var projects = getProjects()
   var project = projects[projectIndex]
 
   project.todos = [{task, done: false}, ...project.todos]
@@ -54,7 +57,7 @@ export function addProjectTodo(projectIndex, task) {
 }
 
 export function doneProjectTodo(projectIndex, taskIndex) {
-  var projects = store.get('projects')
+  var projects = getProjects()
   var project = projects[projectIndex]
   var todo = project.todos[taskIndex]
 
@@ -78,7 +81,7 @@ export function doneProjectTodo(projectIndex, taskIndex) {
 }
 
 export function deleteProjectTodo(projectIndex,taskIndex){
-  var projects = store.get('projects')
+  var projects = getProjects()
   var project = projects[projectIndex]
 
   project.todos.splice(taskIndex,1)
@@ -101,14 +104,14 @@ export function createProject(name) {
     todos: []
   }
 
-  var projects = store.get('projects')
+  var projects = getProjects()
   projects.unshift(project)
   store.set('projects', projects)
   return loadProjects()
 }
 
 export function removeProject(projectIndex) {
-  var projects = store.get('projects')
+  var projects = getProjects()
   projects.splice(projectIndex, 1)
   store.set('projects', projects)
   return loadProjects()
