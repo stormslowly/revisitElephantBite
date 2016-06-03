@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
 import  Dashboard from '../components/Dashboard'
-import {removeProject} from '../redux/actions'
+import {removeProject, shiftProject} from '../redux/actions'
 
 export default connect(function (state) {
   return {
@@ -12,6 +12,9 @@ export default connect(function (state) {
   return {
     removeProject: function (index) {
       return dispatch(removeProject(index))
+    },
+    shiftProject: function (from, to) {
+      return dispatch(shiftProject(from, to))
     }
   }
 })(Dashboard)

@@ -15,10 +15,20 @@ class Projects extends React.Component {
     this.sortableContainersDecorator = this.sortableContainersDecorator.bind(this)
   }
 
+  shiftProject(fromIndex, toIndex) {
+    if (fromIndex !== toIndex) {
+      this.props.shiftProject(fromIndex, toIndex)
+    }
+  }
+
   sortableContainersDecorator(componentBackingInstance) {
+    var self = this
     if (componentBackingInstance) {
       let options = {
-        handle: ".projectHandle"
+        handle: ".projectHandle",
+        onEnd: function (evt) {
+          self.shiftProject(evt.oldIndex, evt.newIndex)
+        }
       };
       Sortable.create(componentBackingInstance, options);
     }
@@ -26,12 +36,13 @@ class Projects extends React.Component {
 
   render() {
     var projects = this.props.projects
+
     var removeProject = this.props.removeProject
     return <div className='clearfix'>
       <div className="projects" ref={this.sortableContainersDecorator}>
         {
-          projects.map((p, i)=> <div className="projectHandle">
-            <Link key={i} to={`/project/${i}`}>
+          projects.map((p, i)=> <div key={p.name}  className="projectHandle">
+              <Link to={`/project/${i}`}>
                 <ProjectCover project={p} remove={ function(){removeProject(i)} }/>
               </Link>
             </div>
@@ -49,7 +60,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    return <Projects projects={this.props.projects} removeProject={this.props.removeProject}/>
+    return <Projects projects={this.props.projects} removeProject={this.props.removeProject}
+                     shiftProject={this.props.shiftProject}
+    />
   }
 }
 

@@ -3,7 +3,7 @@ import * as ActionTypes from '../constants/index'
 import fetch from 'isomorphic-fetch'
 
 function getProjects() {
-  return store.get('projects')||[]
+  return store.get('projects') || []
 }
 
 export function loadProjects() {
@@ -30,10 +30,10 @@ export function setCurrentProjectIndex(index) {
   }
 }
 
-function sort(todos){
+function sort(todos) {
 
-  todos.sort(function(t1,t2){
-      return Number(t1.done)-Number(t2.done)
+  todos.sort(function (t1, t2) {
+    return Number(t1.done) - Number(t2.done)
   })
 
 }
@@ -65,7 +65,7 @@ export function doneProjectTodo(projectIndex, taskIndex) {
   project.done += 1
   var newTodo = Object.assign({}, todo)
 
-  project.todos =  [].concat(project.todos.slice(0, taskIndex ),
+  project.todos = [].concat(project.todos.slice(0, taskIndex),
     newTodo,
     project.todos.slice(taskIndex + 1))
   project.tasks = project.todos.length
@@ -80,11 +80,11 @@ export function doneProjectTodo(projectIndex, taskIndex) {
 
 }
 
-export function deleteProjectTodo(projectIndex,taskIndex){
+export function deleteProjectTodo(projectIndex, taskIndex) {
   var projects = getProjects()
   var project = projects[projectIndex]
 
-  project.todos.splice(taskIndex,1)
+  project.todos.splice(taskIndex, 1)
   project.tasks = project.todos.length
   project.done = project.todos.filter((t)=>t.done).length
 
@@ -115,4 +115,33 @@ export function removeProject(projectIndex) {
   projects.splice(projectIndex, 1)
   store.set('projects', projects)
   return loadProjects()
+}
+
+export function shiftProject(from, to) {
+  var projects = getProjects()
+  shiftArray(projects,from,to)
+  store.set('projects', projects)
+  return loadProjects()
+}
+
+function shiftArray(arr, from, to) {
+  function swap(from, to) {
+    var movingItem = arr[from]
+    var targetItem = arr[to]
+    arr[to] = movingItem
+    arr[from] = targetItem
+  }
+  var next
+  if (from < to) {
+    next = () => from + 1
+  } else {
+    next = ()=> from - 1
+  }
+
+  var steps = Math.abs(from - to)
+  while (steps) {
+    swap(from, next())
+    from = next()
+    steps -= 1
+  }
 }
