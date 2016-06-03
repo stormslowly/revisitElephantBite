@@ -48,8 +48,8 @@ class Projects extends React.Component {
             </div>
           )
         }
-        <Link className="new-project" to={'/project/new'}> <NewProject/> </Link>
       </div>
+        <Link className="new-project" to={'/project/new'}> <NewProject/> </Link>
     </div>
   }
 }
