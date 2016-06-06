@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
 import ProjectDetail  from '../components/ProjectDetail'
-import  {addProjectTodo,doneProjectTodo,deleteProjectTodo} from '../redux/actions'
+import  {addProjectTodo,toggleProjectTodo,deleteProjectTodo} from '../redux/actions'
 
 export default connect(function (state) {
     var currentProject = state.currentProject
@@ -17,7 +17,7 @@ export default connect(function (state) {
         dispatch(addProjectTodo(projectIndex, task))
       },
       doneTodo: function(projectIndex,taskIndex){
-        dispatch(doneProjectTodo(projectIndex,taskIndex))
+        dispatch(toggleProjectTodo(projectIndex,taskIndex))
       },
       deleteTodo: function(projectIndex,taskIndex){
         dispatch(deleteProjectTodo(projectIndex,taskIndex))

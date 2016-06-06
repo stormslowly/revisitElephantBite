@@ -30,15 +30,6 @@ export function setCurrentProjectIndex(index) {
   }
 }
 
-function sort(todos) {
-
-  todos.sort(function (t1, t2) {
-    return Number(t1.done) - Number(t2.done)
-  })
-
-}
-
-
 export function addProjectTodo(projectIndex, task) {
   var projects = getProjects()
   var project = projects[projectIndex]
@@ -56,12 +47,12 @@ export function addProjectTodo(projectIndex, task) {
   }
 }
 
-export function doneProjectTodo(projectIndex, taskIndex) {
+export function toggleProjectTodo(projectIndex, taskIndex) {
   var projects = getProjects()
   var project = projects[projectIndex]
   var todo = project.todos[taskIndex]
 
-  todo.done = true
+  todo.done = !todo.done
   project.done += 1
   var newTodo = Object.assign({}, todo)
 
@@ -70,7 +61,6 @@ export function doneProjectTodo(projectIndex, taskIndex) {
     project.todos.slice(taskIndex + 1))
   project.tasks = project.todos.length
   project.done = project.todos.filter((t)=>t.done).length
-  sort(project.todos)
 
   store.set('projects', projects)
   return {

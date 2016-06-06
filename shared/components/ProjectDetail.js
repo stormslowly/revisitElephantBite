@@ -29,25 +29,22 @@ class NewTodoForm extends React.Component {
 }
 
 function Todos(props) {
-  var {todos, doneById, deleteById  } = props
+  var {todos, toggleById, deleteById} = props
 
   return <div>
     <ul style={{listStyle: 'none',padding:'0px'}}>
       {
         todos.map(function (todo, i) {
           var todoClass = todo.done ? 'todo done' : 'todo'
-          var doneButtonClass = todo.done ? 'hidden' : 'done-button'
-          var deleteButtonClass = todo.done? 'delete-button':'hidden'
           return <li key={i}
-                     className={todoClass}>{todo.task}
-                    <span onClick={()=>doneById(i)}
-                          className={doneButtonClass}>
-                      <img src="/images/complete_bite-icon@2x.png"
-                           alt="done-button"/>
-                    </span>
+                     onClick={()=>toggleById(i)}
+                     className={todoClass}> {todo.task}
 
-                    <span onClick={()=>deleteById(i)}
-                          className={deleteButtonClass}>
+                    <span onClick={(e)=>{
+                      e.stopPropagation()
+                      deleteById(i)}
+                    }
+                          className="delete-button">
                       <img src="/images/delete_bite-icon@2x.png"
                            alt="delete-button"/>
                     </span>
@@ -80,7 +77,7 @@ class ProjectDetail extends React.Component {
         </div>
       </ProjectHeader>
       <NewTodoForm submit={(task)=>submit(index,task)}/>
-      <Todos todos={project.todos} doneById={(todoIndex)=> doneTodo(index,todoIndex)}
+      <Todos todos={project.todos} toggleById={(todoIndex)=> doneTodo(index,todoIndex)}
              deleteById={(todoIndex)=> deleteTodo(index,todoIndex)}/>
     </div>
   }
